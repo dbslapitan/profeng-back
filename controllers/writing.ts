@@ -10,3 +10,14 @@ export async function getRandomWritingId(request: Request, response: Response){
         response.status(500).json(error);
     }
 }
+
+export async function getSingleWriting(request: Request, response: Response) {
+    const { id } = request.params;
+    try{
+        const writing = await Writing.findById(id).select('-__v');
+        response.status(201).json(writing);
+    }
+    catch(error){
+        response.status(500).json(error);
+    }
+}
