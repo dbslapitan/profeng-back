@@ -12,6 +12,7 @@ import { normalizePort } from "./utils/nomalize-port-env";
 import { connect, connection } from "mongoose";
 import { router as readingRoute } from "./routes/reading";
 import { router as feedbackRoute } from "./routes/feedback";
+import { router as writingRoute } from "./routes/writing";
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use(express.json());
 
 app.use('/api/v1/reading',readingRoute);
 app.use('/api/v1/feedback', feedbackRoute);
+app.use('/api/v1/writing', writingRoute);
 
 const PORT = normalizePort(8080);
 
