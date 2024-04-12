@@ -8,6 +8,7 @@ if(result.error){
 
 import * as express from 'express';
 import * as cors from 'cors';
+import { normalizePort } from './utils/nomalize-port-env';
 
 const app = express();
 
@@ -15,6 +16,8 @@ app.use(cors());
 
 app.use(express.json());
 
-app.listen(8080, () => {
-    console.log('Server started at port 8080...');
+const PORT = normalizePort(8080);
+
+app.listen(PORT, () => {
+    console.log(`Server started at port ${PORT}...`);
 });
