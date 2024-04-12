@@ -2,7 +2,9 @@
     "compilerOptions": {
         "module": "CommonJS",
         "target": "ES6",
-        "outDir": "dist"
+        "outDir": "dist",
+        "noImplicitAny": true,
+        "strictNullChecks": true
     },
     "exclude": [
         "node_modules"

@@ -9,8 +9,14 @@ if(result.error){
 import * as express from 'express';
 import * as cors from 'cors';
 import { normalizePort } from './utils/nomalize-port-env';
+import { connect, connection } from 'mongoose';
 
 const app = express();
+
+const URI = process.env.URI;
+
+connect(URI as string);
+connection.on('connected', () => console.log('Connected to MongoDB...'));
 
 app.use(cors());
 
