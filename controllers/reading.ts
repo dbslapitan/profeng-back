@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { IQuestion, IReading, Reading } from "../schemas/reading";
+import { IReading, Reading } from "../schemas/reading";
 
 export async function getRandomReadingId (request: Request, response: Response) {
     try{

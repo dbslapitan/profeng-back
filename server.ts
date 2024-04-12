@@ -11,6 +11,7 @@ import * as cors from "cors";
 import { normalizePort } from "./utils/nomalize-port-env";
 import { connect, connection } from "mongoose";
 import { router as readingRoute } from "./routes/reading";
+import { router as feedbackRoute } from "./routes/feedback";
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/v1/reading',readingRoute);
+app.use('/api/v1/feedback', feedbackRoute);
 
 const PORT = normalizePort(8080);
 
