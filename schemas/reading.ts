@@ -7,10 +7,10 @@ export interface IReading {
     questions: [IQuestion]
 }
 
-interface IQuestion {
+export interface IQuestion {
     question: string,
     options: [string],
-    answer: string
+    answer?: string
 }
 
 const questionSchema = new Schema<IQuestion>({
