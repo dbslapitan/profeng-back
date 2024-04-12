@@ -1,6 +1,8 @@
 import { Router } from "express";
-import { postReadingFeedback } from "../controllers/feedback";
+import { getAllFeedback, postReadingFeedback } from "../controllers/feedback";
 
 export const router = Router();
+
+router.get('/', getAllFeedback);
 
 router.post('/reading', postReadingFeedback);
