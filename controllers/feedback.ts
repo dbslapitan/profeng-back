@@ -19,8 +19,8 @@ export async function postReadingFeedback(request: Request, response: Response){
 
 export async function getAllFeedback(request: Request, response: Response) {
     try{
-        const readingFeedbacks = await ReadingFeedback.find().populate('reading').select('-__v');
-        const writingFeedbacks = await WritingFeedback.find().populate('writing').select('-__v');
+        const readingFeedbacks = await ReadingFeedback.find().populate('reading').select('reading createdAt skill');
+        const writingFeedbacks = await WritingFeedback.find().populate('writing').select('-writing createdAt skill');
         const feedbacks = [...readingFeedbacks, ...writingFeedbacks];
         feedbacks.sort((a, b) => {
             return b.createdAt - a.createdAt;
@@ -57,6 +57,17 @@ export async function postWritingFeedback(request: Request, response: Response) 
     }
     catch(error){
         console.log(error);
+        response.status(500).json(error);
+    }
+}
+
+export async function getSingleWritinFeedback(request: Request, response: Response) {
+    const { id } = request.params;
+    try{
+        const writingFeedback = await WritingFeedback.findById(id).populate('writing').select('-__v');
+        response.status(200).json(writingFeedback);
+    }
+    catch(error){
         response.status(500).json(error);
     }
 }
