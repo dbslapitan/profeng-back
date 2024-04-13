@@ -35,7 +35,7 @@ export async function postWritingFeedback(request: Request, response: Response) 
         writingFeedback.createdAt = Date.now();
         writingFeedback.skill = 'Writing';
         writingFeedback.status = 'pending';
-        await WritingFeedback.create(writingFeedback);
+        const pendingFeedback = await WritingFeedback.create(writingFeedback);
     
         const instruction = "Instruction: Evaluate the essay based on IELTS writing. Please explain in detail and give examples where in the essay needs improvement without mentioning IELTS. Also, at the end, provide an improved version of the essay. Response should be in JSON format that has been put into JSON.stringify(), each point of feedback should be put in an array of strings called feedback and each paragraph of the improved version should be put in an array named improvedVersion.";
     
@@ -45,11 +45,9 @@ export async function postWritingFeedback(request: Request, response: Response) 
     
         const aiFeedback = await getAiFeedback(essay);
 
-        console.log(aiFeedback);
-
         const feedback = JSON.parse(aiFeedback as string);
     
-        await WritingFeedback.create({ ...writingFeedback, feedback })
+        await WritingFeedback.findByIdAndUpdate(pendingFeedback._id ,{ status: 'evaluated', ...feedback })
     
         response.sendStatus(201);
     }
