@@ -5,7 +5,7 @@ export interface IWriting{
 }
 
 const writingSchema = new Schema<IWriting>({
-    prompt: String
+    prompt: { type: String, required: true }
 });
 
 export const Writing = model('Writing', writingSchema);
