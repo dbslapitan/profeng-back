@@ -20,7 +20,11 @@ export async function postReadingFeedback(request: Request, response: Response){
 export async function getAllFeedback(request: Request, response: Response) {
     try{
         const readingFeedbacks = await ReadingFeedback.find().populate('reading').select('-__v');
-        const feedbacks = [...readingFeedbacks];
+        const writingFeedbacks = await WritingFeedback.find().populate('writing').select('-__v');
+        const feedbacks = [...readingFeedbacks, ...writingFeedbacks];
+        feedbacks.sort((a, b) => {
+            return b.createdAt - a.createdAt;
+        });
         response.status(200).json(feedbacks);
     }
     catch(error){
