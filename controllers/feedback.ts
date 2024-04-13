@@ -9,8 +9,8 @@ export async function postReadingFeedback(request: Request, response: Response){
     readingFeedback.createdAt = Date.now();
     readingFeedback.status = 'evaluated'
     try{
-        await ReadingFeedback.create(readingFeedback);
-        response.sendStatus(201);
+        const reading = await ReadingFeedback.create(readingFeedback);
+        response.status(201).json(reading._id);
     }
     catch(error){
         response.status(500).json(error);
@@ -53,19 +53,29 @@ export async function postWritingFeedback(request: Request, response: Response) 
     
         await WritingFeedback.findByIdAndUpdate(pendingFeedback._id ,{ status: 'evaluated', ...feedback })
     
-        response.sendStatus(201);
+        response.status(201).json(pendingFeedback._id);
     }
     catch(error){
-        console.log(error);
         response.status(500).json(error);
     }
 }
 
-export async function getSingleWritinFeedback(request: Request, response: Response) {
+export async function getSingleWritingFeedback(request: Request, response: Response) {
     const { id } = request.params;
     try{
         const writingFeedback = await WritingFeedback.findById(id).populate('writing').select('-__v');
         response.status(200).json(writingFeedback);
+    }
+    catch(error){
+        response.status(500).json(error);
+    }
+}
+
+export async function getSingleReading(request: Request, response: Response) {
+    const { id } = request.params;
+    try{
+        const readingFeedback = await ReadingFeedback.findById(id).populate('reading').select('-__v');
+        response.status(200).json(readingFeedback);
     }
     catch(error){
         response.status(500).json(error);

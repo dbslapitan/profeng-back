@@ -1,10 +1,12 @@
 import { Router } from "express";
-import { getAllFeedback, postReadingFeedback, postWritingFeedback } from "../controllers/feedback";
+import { getAllFeedback, getSingleWritingFeedback, postReadingFeedback, postWritingFeedback } from "../controllers/feedback";
 
 export const router = Router();
 
 router.get('/', getAllFeedback);
 
+router.get('/writing/:id', getSingleWritingFeedback);
+
 router.post('/reading', postReadingFeedback);
 
-router.post('/writing', postWritingFeedback)
+router.post('/writing', postWritingFeedback);
