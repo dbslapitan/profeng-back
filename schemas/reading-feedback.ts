@@ -6,14 +6,18 @@ interface IReadingFeedback{
     skill: string,
     answer: string[],
     createdAt: number,
-    status: string
+    status: string,
+    essay: string[],
+    feedback: string[]
 }
 
 const feedbackSchema = new Schema<IReadingFeedback>({
     reading: { type: SchemaTypes.ObjectId, required: true, ref: Reading },
     skill: { type: String, required: true },
     createdAt: { type: Number, required: true },
-    status: { type: String, required: true }
+    status: { type: String, required: true },
+    essay: [{type: String, required: true}],
+    feedback: [{type: String, required: true}]
 });
 
 export const ReadingFeedback = model("ReadingFeedback", feedbackSchema);
