@@ -71,7 +71,7 @@ export async function getSingleWritingFeedback(request: Request, response: Respo
     }
 }
 
-export async function getSingleReading(request: Request, response: Response) {
+export async function getSingleReadingFeedback(request: Request, response: Response) {
     const { id } = request.params;
     try{
         const readingFeedback = await ReadingFeedback.findById(id).populate('reading').select('-__v');
