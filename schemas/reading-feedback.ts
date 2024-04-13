@@ -4,7 +4,6 @@ import { Reading } from "./reading";
 interface IReadingFeedback{
     reading: IReadingFeedback | string,
     skill: string,
-    answer: string[],
     createdAt: number,
     status: string,
     essay: string[],
