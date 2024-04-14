@@ -19,8 +19,8 @@ export async function postReadingFeedback(request: Request, response: Response){
 
 export async function getAllFeedback(request: Request, response: Response) {
     try{
-        const readingFeedbacks = await ReadingFeedback.find().populate('reading').select('reading createdAt skill');
-        const writingFeedbacks = await WritingFeedback.find().populate('writing').select('-writing createdAt skill');
+        const readingFeedbacks = await ReadingFeedback.find().populate('reading').select('reading createdAt skill status');
+        const writingFeedbacks = await WritingFeedback.find().populate('writing').select('-writing createdAt skill status');
         const feedbacks = [...readingFeedbacks, ...writingFeedbacks];
         feedbacks.sort((a, b) => {
             return b.createdAt - a.createdAt;
