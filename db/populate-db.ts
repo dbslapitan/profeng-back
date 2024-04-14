@@ -16,14 +16,17 @@ const URI = process.env.URI;
     connection.dropCollection('readings');
     connection.dropCollection('writings');
 
-    const promises: Promise<IReading | IWriting>[] = [];
+    const promiseReading: Promise<IReading>[] = [];
+    const promiseWriting: Promise<IWriting>[] = [];
 
     console.log('Populating Reading...');
     
     readings.forEach(async (reading) => {
         console.log(`Adding: ${reading.title}`);
-        promises.push(Reading.create(reading));
+        promiseReading.push(Reading.create(reading));
     });
+
+    await Promise.allSettled(promiseReading);
 
     console.log('Population of Reading Completed...');
 
@@ -31,9 +34,12 @@ const URI = process.env.URI;
 
     writings.forEach(async (writing) => {
         console.log(`Adding: ${writing.prompt}`)
-        promises.push(Writing.create(writing));
+        promiseWriting.push(Writing.create(writing));
     });
 
-    await Promise.allSettled(promises);
+    await Promise.allSettled(promiseWriting);
+
+    console.log('Population of Writing Completed...');
+    
     disconnect();
 })();
