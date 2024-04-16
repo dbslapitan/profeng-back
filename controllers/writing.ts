@@ -15,6 +15,9 @@ export async function getSingleWriting(request: Request, response: Response) {
     const { id } = request.params;
     try{
         const writing = await Writing.findById(id).select('-__v');
+        if(!writing?.prompt){
+            return response.status(404).json({message: "Writing not found"});
+        }
         response.status(201).json(writing);
     }
     catch(error){
