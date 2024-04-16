@@ -15,6 +15,10 @@ export async function getSingleReading (request: Request, response: Response){
     const { id } = request.params;
     try{
         const reading = await Reading.findById<IReading>(id).select('-__v');
+        if(!reading?.title){
+            return response.status(404).json({message: "Content not found"});
+        }
+
         const copyReading: IReading = JSON.parse(JSON.stringify(reading));
         const { questions, ...restOfReading } = copyReading;
         const removeAnswer = questions.map(question => {

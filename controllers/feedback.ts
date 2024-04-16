@@ -14,6 +14,7 @@ export async function postReadingFeedback(request: Request, response: Response) 
         response.status(201).json(reading._id);
     }
     catch (error) {
+        console.log(error);
         response.status(500).json(error);
     }
 }
@@ -29,12 +30,12 @@ export async function getAllFeedback(request: Request, response: Response) {
         response.status(200).json(feedbacks);
     }
     catch (error) {
+        console.log(error);
         response.status(500).json(error);
     }
 }
 
 export async function postWritingFeedback(request: Request, response: Response) {
-
     try {
         const writingFeedback = request.body;
         writingFeedback.createdAt = Date.now();
@@ -45,6 +46,7 @@ export async function postWritingFeedback(request: Request, response: Response) 
         response.status(201).json(pendingFeedback._id);
     }
     catch (error) {
+        console.log(error);
         response.status(500).json(error);
     }
 }
@@ -69,8 +71,7 @@ export async function getSingleWritingFeedback(request: Request, response: Respo
 
             return response.status(200).json(evaluated);
         }else{
-
-            response.status(200).json(writingFeedback);
+            return response.status(200).json(writingFeedback);
         }
     }
     catch (error) {
@@ -86,6 +87,7 @@ export async function getSingleReadingFeedback(request: Request, response: Respo
         response.status(200).json(readingFeedback);
     }
     catch (error) {
+        console.log(error);
         response.status(500).json(error);
     }
 }
